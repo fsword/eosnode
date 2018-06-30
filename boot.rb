@@ -30,7 +30,7 @@ class Wallet
   end
 
   def run cmd
-    cleos "wallet #{cmd}", @node
+    cleos "wallet #{cmd}"
   end
 end
 
