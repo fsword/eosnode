@@ -4,4 +4,6 @@ RUN apt-get update && apt-get install iputils-ping -y
 
 COPY entrypoint.sh /
 ENTRYPOINT ["/entrypoint.sh"]
-CMD ["--data-dir", "/opt/eosio/bin/data-dir", "-e"]
+
+ENV ADDR_TO_IP true
+CMD ["--data-dir", "/opt/eosio/bin/data-dir", "--genesis-json", "/opt/eosio/bin/data-dir/genesis.json", "-e"]
