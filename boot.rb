@@ -107,7 +107,7 @@ regproducer('eosio.bp1')
 regproducer('eosio.bp2')
 
 # 开始投票
-%w{ eosio.bp1 eosio.bp2 }.each do |bp|
+%w{ eosio eosio.bp1 eosio.bp2 }.each do |bp|
   %w{voter1 voter2 voter3}.each{|v| voteproducer v, bp}
 end
 
