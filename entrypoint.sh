@@ -1,13 +1,15 @@
 #!/bin/sh
 
-if [ "$ADDR_TO_IP" != "" ]
+DATA_DIR=/opt/eosio/bin/data-dir
+TEMPLATE_PATH=$DATA_DIR/config.ini.template
+CONFIG_INI_PATH=$DATA_DIR/config.ini
+
+if [ -f $CONFIG_INI_PATH ]
 then
-
-  TEMPLATE_PATH=/opt/eosio/bin/data-dir/config.ini.template
-  CONFIG_INI_PATH=/opt/eosio/bin/data-dir/config.ini
-
-  echo "use CONFIG_INI_PATH: $CONFIG_INI_PATH"
-
+  echo "file exist: $CONFIG_INI_PATH"
+elif [ "$ADDR_TO_IP" != "" ]
+then
+  echo "create $CONFIG_INI_PATH"
   cat $TEMPLATE_PATH | grep -v "p2p-peer-address" > $CONFIG_INI_PATH
 
   for host in `grep "p2p-peer-address" $TEMPLATE_PATH | grep -v "#" | awk -F= '{print $2}'`
@@ -19,7 +21,12 @@ then
     echo "set peer node: $ip:$port"
     echo "p2p-peer-address = $ip:$port" >> $CONFIG_INI_PATH
   done
-
 fi
 
-exec /opt/eosio/bin/nodeosd.sh "$@"
+if [ -d $DATA_DIR/blocks ]
+then
+  exec /opt/eosio/bin/nodeosd.sh "$@"
+else
+  exec /opt/eosio/bin/nodeosd.sh --genesis-json $DATA_DIR/genesis.json "$@"
+fi
+
