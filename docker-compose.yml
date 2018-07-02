@@ -7,7 +7,6 @@ services:
     volumes:
       - ./eosio-node/config.ini:/opt/eosio/config.ini.template:ro
       - ./genesis.json:/opt/eosio/genesis.json:ro
-      - ./data-dir:/opt/eosio/bin/data-dir
   eosio-bp1-node:
     hostname: eosio-bp1-node
     image: fsword/eosnode
@@ -24,15 +23,15 @@ services:
 
   keosd:
     image: eosio/eos:v1.0.7
-    working_dir: /opt/eosio/bin/data-dir/contracts
+    working_dir: /opt/contracts
     command: /opt/eosio/bin/keosd --wallet-dir /opt/eosio/bin/data-dir --http-server-address=127.0.0.1:8900
     volumes:
-      - ./contracts:/opt/eosio/bin/data-dir/contracts
+      - ./contracts:/opt/contracts
 
-  eos-dev:
+  dev:
     image: eosio/eos-dev
-    working_dir: /opt/eosio/bin/data-dir/contracts
+    working_dir: /opt/contracts
     volumes:
-      - ./contracts:/opt/eosio/bin/data-dir/contracts
+      - ./contracts:/opt/contracts
 
 

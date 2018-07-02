@@ -1,41 +1,9 @@
 #!/usr/bin/env ruby
-require 'pry'
-require 'pry-nav'
 
-module Fig
-  def fig cmd
-    puts "+fig exec keosd #{cmd}"
-    `docker-compose exec keosd #{cmd}`.tap do |s|
-      puts s
-    end
-  end
+require_relative './lib/util'
+require_relative './lib/wallet'
 
-  def cleos cmd, node='eosio-node'
-    fig "cleos -u http://#{node}:8888/ #{cmd}"
-  end
-end
-
-class Wallet
-  include Fig
-
-  # wallet key is saved in container
-  def create
-    password = run('create | tee -a wallet.log').split("\n").last.strip.gsub '"', ''
-    run "unlock --password #{password}"
-    self
-  end
-
-  def import_key key
-    run "import #{key}"
-    self
-  end
-
-  def run cmd
-    cleos "wallet #{cmd}"
-  end
-end
-
-include Fig
+include Util
 
 @keys = File.readlines('keys').
   delete_if{|s| s == "\n"}.
