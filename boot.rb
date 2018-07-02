@@ -18,8 +18,9 @@ end
 class Wallet
   include Fig
 
+  # wallet key is saved in container
   def create
-    password = run('create').split("\n").last.strip.gsub '"', ''
+    password = run('create | tee -a wallet.log').split("\n").last.strip.gsub '"', ''
     run "unlock --password #{password}"
     self
   end

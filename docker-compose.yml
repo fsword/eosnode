@@ -1,27 +1,38 @@
-version: "3"
+version: "3.6"
 
 services:
   eosio-node:
     hostname: eosio-node
     image: fsword/eosnode
     volumes:
-      - ./eosio-node/config.ini:/opt/eosio/bin/data-dir/config.ini.template:ro
-      - ./genesis.json:/opt/eosio/bin/data-dir/genesis.json:ro
+      - ./eosio-node/config.ini:/opt/eosio/config.ini.template:ro
+      - ./genesis.json:/opt/eosio/genesis.json:ro
+      - ./data-dir:/opt/eosio/bin/data-dir
   eosio-bp1-node:
     hostname: eosio-bp1-node
     image: fsword/eosnode
     volumes:
-      - ./eosio-bp1-node/config.ini:/opt/eosio/bin/data-dir/config.ini.template:ro
-      - ./genesis.json:/opt/eosio/bin/data-dir/genesis.json:ro
+      - ./eosio-bp1-node/config.ini:/opt/eosio/config.ini.template:ro
+      - ./genesis.json:/opt/eosio/genesis.json:ro
 
   eosio-bp2-node:
     hostname: eosio-bp2-node
     image: fsword/eosnode
     volumes:
-      - ./eosio-bp2-node/config.ini:/opt/eosio/bin/data-dir/config.ini.template:ro
-      - ./genesis.json:/opt/eosio/bin/data-dir/genesis.json:ro
+      - ./eosio-bp2-node/config.ini:/opt/eosio/config.ini.template:ro
+      - ./genesis.json:/opt/eosio/genesis.json:ro
 
   keosd:
     image: eosio/eos:v1.0.7
+    working_dir: /opt/eosio/bin/data-dir/contracts
     command: /opt/eosio/bin/keosd --wallet-dir /opt/eosio/bin/data-dir --http-server-address=127.0.0.1:8900
+    volumes:
+      - ./contracts:/opt/eosio/bin/data-dir/contracts
+
+  eos-dev:
+    image: eosio/eos-dev
+    working_dir: /opt/eosio/bin/data-dir/contracts
+    volumes:
+      - ./contracts:/opt/eosio/bin/data-dir/contracts
+
 
