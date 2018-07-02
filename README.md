@@ -37,3 +37,12 @@ Generated ./hi/hi.abi ...
 
 Then you can get wasm/wast/abi files.
 
+## Recommend alias
+
+```
+cleos='fig exec keosd cleos -u http://eosio-node:8888/'
+eosiocpp='fig run dev eosiocpp'
+keos='fig exec keosd /bin/bash'
+nodeos='fig exec eosio-node /bin/bash'
+```
+

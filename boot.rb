@@ -5,7 +5,7 @@ require_relative './lib/wallet'
 
 include Util
 
-@keys = File.readlines('keys').
+@keys = File.readlines('config/keys').
   delete_if{|s| s == "\n"}.
   map{|s| s.gsub(/(\n| )/,'').split('|')[1..-1] }.
   reduce({}){ |sum,arr| sum.update( arr[0] => [arr[1], arr[2]] ) }

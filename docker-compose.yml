@@ -5,21 +5,21 @@ services:
     hostname: eosio-node
     image: fsword/eosnode
     volumes:
-      - ./eosio-node/config.ini:/opt/eosio/config.ini.template:ro
-      - ./genesis.json:/opt/eosio/genesis.json:ro
+      - ./config/eosio-node/config.ini:/opt/eosio/config.ini.template:ro
+      - ./config/genesis.json:/opt/eosio/genesis.json:ro
   eosio-bp1-node:
     hostname: eosio-bp1-node
     image: fsword/eosnode
     volumes:
-      - ./eosio-bp1-node/config.ini:/opt/eosio/config.ini.template:ro
-      - ./genesis.json:/opt/eosio/genesis.json:ro
+      - ./config/eosio-bp1-node/config.ini:/opt/eosio/config.ini.template:ro
+      - ./config/genesis.json:/opt/eosio/genesis.json:ro
 
   eosio-bp2-node:
     hostname: eosio-bp2-node
     image: fsword/eosnode
     volumes:
-      - ./eosio-bp2-node/config.ini:/opt/eosio/config.ini.template:ro
-      - ./genesis.json:/opt/eosio/genesis.json:ro
+      - ./config/eosio-bp2-node/config.ini:/opt/eosio/config.ini.template:ro
+      - ./config/genesis.json:/opt/eosio/genesis.json:ro
 
   keosd:
     image: eosio/eos:v1.0.7
