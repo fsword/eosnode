@@ -21,8 +21,15 @@ then
     port=`echo $host | awk -F: '{print $2}'`
 
     ip=`ping -c 1 $addr | grep PING | awk '{print $3}' | sed  -e "s/[():]//g"`
-    echo "set peer node: $ip:$port"
-    echo "p2p-peer-address = $ip:$port" >> $CONFIG_INI_PATH
+
+    if [ "$ip" != "" ]
+    then
+      echo "set peer node: $ip:$port"
+      echo "p2p-peer-address = $ip:$port" >> $CONFIG_INI_PATH
+    else
+      echo "cannot find ip: $host"
+      echo "p2p-peer-address = $host" >> $CONFIG_INI_PATH
+    fi
   done
 fi
 
