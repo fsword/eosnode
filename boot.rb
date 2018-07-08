@@ -5,16 +5,6 @@ require_relative './lib/wallet'
 
 include Util
 
-@keys = File.readlines('config/keys').
-  delete_if{|s| s == "\n"}.
-  map{|s| s.gsub(/(\n| )/,'').split('|')[1..-1] }.
-  reduce({}){ |sum,arr| sum.update( arr[0] => [arr[1], arr[2]] ) }
-
-def keys
-  @keys
-end
-
-
 def delegatebw account1, account2
   cleos %Q|system delegatebw #{account1} #{account2} '25000000.0000 SYS' '25000000.0000 SYS' --transfer|
 end
