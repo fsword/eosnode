@@ -46,13 +46,13 @@ cleos "set contract eosio /contracts/eosio.bios -p eosio"
 cleos "set contract eosio /contracts/eosio.system -p eosio"
 
 # 创建节点和投票账户
-%w{eosio.bp1 eosio.bp2 voter1 voter2 voter3}.each do |label|
-  cleos "system newaccount eosio #{label} #{keys[label][1]} #{keys[label][1]} --stake-net '50.00 SYS' --stake-cpu '50.00 SYS' --buy-ram-kbytes 10000"
+%w{eosio.bp1 eosio.bp2 voter1 voter2 voter3}.each do |u|
+  newaccount u
 end
 
 # 给Voter账户转账
-%w{voter1 voter2 voter3}.each do |label|
-  cleos %Q|push action eosio.token transfer '["eosio", "#{label}", "100000000.0000 SYS", "vote"]' -p eosio|
+%w{voter1 voter2 voter3}.each do |u|
+  transfer 'eosio', u, "100000000.0000"
 end
 
 # 锁定Voter账户需要投票的代币
