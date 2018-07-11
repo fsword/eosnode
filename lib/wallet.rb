@@ -16,7 +16,7 @@ class Wallet
 
   # wallet key is saved in container
   def create
-    @password = run("create -n #{@name}").split("\n").last.strip.gsub '"', ''
+    @password = run("create -n #{@name}").result.split("\n").last.strip.gsub '"', ''
     save_password
     self
   end

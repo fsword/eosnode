@@ -1,5 +1,19 @@
 module Util
 
+  class Result
+    def initialize result
+      @result = result
+    end
+
+    def result
+      @result
+    end
+
+    def inspect
+      nil
+    end
+  end
+
   @@keys = File.readlines('config/keys').
     delete_if{|s| s == "\n"}.
     map{|s| s.gsub(/(\n| )/,'').split('|')[1..-1] }.
@@ -11,9 +25,10 @@ module Util
 
   def fig cmd
     puts "+fig #{cmd}"
-    `docker-compose #{cmd}`.tap do |s|
+    result = `docker-compose #{cmd}`.tap do |s|
       puts s
     end
+    Result.new result
   end
 
   def cleos cmd, node='eosio-node'
