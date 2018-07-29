@@ -28,7 +28,7 @@ class Wallet
   end
 
   def import_key key
-    run "import -n #{@name} #{key}"
+    run "import -n #{@name} --private-key #{key}"
     self
   end
 
