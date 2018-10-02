@@ -1,8 +1,5 @@
 #!/bin/sh
 
-BASE_DIR=/opt/eosio
-DATA_DIR=$BASE_DIR/bin/data-dir
-
 TEMPLATE_PATH=$BASE_DIR/config.ini.template
 CONFIG_INI_PATH=$DATA_DIR/config.ini
 

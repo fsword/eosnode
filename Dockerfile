@@ -1,9 +1,14 @@
-FROM eosio/eos:v1.2.6
+FROM eosio/eos:v1.3.0
 
 RUN apt-get update && apt-get install iputils-ping -y
 
-COPY entrypoint.sh /
+ENV BASE_DIR /opt/eosio
+ENV DATA_DIR $BASE_DIR/bin/data-dir
 ENV ADDR_TO_IP true
+
+RUN mkdir -p $DATA_DIR
+
+COPY entrypoint.sh /
 
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["--data-dir", "/opt/eosio/bin/data-dir", "-e"]
