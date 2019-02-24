@@ -1,4 +1,4 @@
-FROM fsword/eosio:v1.6.2
+FROM fsword/eosio:v1.6
 
 RUN apt-get update && apt-get install iputils-ping -y
 
