@@ -41,7 +41,7 @@ module Util
 
   def newaccount u, public_key=nil
     public_key ||= keys[u][1]
-    cleos "system newaccount eosio #{u} #{keys[u][1]} #{public_key} --stake-net '50.00 SYS' --stake-cpu '50.00 SYS' --buy-ram-kbytes 10000"
+    cleos "system newaccount eosio #{u} #{keys[u][1]} #{public_key} --stake-net '500.00 SYS' --stake-cpu '500.00 SYS' --buy-ram-kbytes 10000"
   end
 
   def transfer u1, u2, count
