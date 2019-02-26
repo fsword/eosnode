@@ -23,16 +23,12 @@ Then check containers' log.
 
 ```
 # cd eosnode
-# write a contract on ./contracts/hi/hi.cpp
-# ruby eosiocpp.rb ./contracts/hi/hi.cpp
-+fig run dev eosiocpp -o ./hi/hi.wast ./hi/hi.cpp
+# write a contract on ./contracts/hello/hello.cpp
+# ruby eosiocpp.rb ./contracts/hello/hello.cpp
++fig run dev eosio-cpp -o ./hello/hello.wast ./hello/hello.cpp --abigen
+Warning, empty ricardian clause file
+Warning, empty ricardian clause file
 
-+fig run dev eosiocpp -g ./hi/hi.abi ./hi/hi.cpp
-1497123ms thread-0   abi_generator.hpp:68          ricardian_contracts  ] Warning, no ricardian clauses found for hi
-
-1497124ms thread-0   abi_generator.hpp:75          ricardian_contracts  ] Warning, no ricardian contract found for world
-
-Generated ./hi/hi.abi ...
 ```
 
 Then you can get wasm/wast/abi files.

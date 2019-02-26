@@ -14,6 +14,5 @@ error("File not exist: #{file}") unless File.exist?(file)
 
 dest_path_base = (file.split('/') - ['contracts']).join('/').sub(/\.cpp$/,'')
 
-eosiocpp("-o #{dest_path_base}.wast #{dest_path_base}.cpp")
-eosiocpp("-g #{dest_path_base}.abi #{dest_path_base}.cpp")
+eosiocpp("-o #{dest_path_base}.wast #{dest_path_base}.cpp --abigen")
 

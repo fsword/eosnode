@@ -36,7 +36,7 @@ module Util
   end
 
   def eosiocpp cmd
-    fig "run dev eosiocpp #{cmd}"
+    fig "run dev eosio-cpp #{cmd}"
   end
 
   def newaccount u, public_key=nil
@@ -47,6 +47,9 @@ module Util
   def transfer u1, u2, count
     cleos %Q|push action eosio.token transfer '["#{u1}", "#{u2}", "#{count} SYS", "vote"]' -p eosio|
   end
+  def error msg
+    $stderr.puts msg
+    exit 1
+  end
 end
-
 

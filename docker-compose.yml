@@ -29,7 +29,7 @@ services:
       - ./contracts:/opt/contracts
 
   dev:
-    image: eosio/eos-dev
+    image: devbjune/eosio.cdt
     working_dir: /opt/contracts
     volumes:
       - ./contracts:/opt/contracts
