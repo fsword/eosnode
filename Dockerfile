@@ -11,5 +11,5 @@ RUN mkdir -p $DATA_DIR
 COPY entrypoint.sh /
 
 ENTRYPOINT ["/entrypoint.sh"]
-CMD ["--data-dir", "/opt/eosio/bin/data-dir", "-e"]
+CMD ["--data-dir", "/opt/eosio/bin/data-dir", "--contracts-console", "-e"]
 
