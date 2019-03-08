@@ -44,6 +44,10 @@ module Util
     cleos "system newaccount eosio #{u} #{keys[u][1]} #{public_key} --stake-net '500.00 SYS' --stake-cpu '500.00 SYS' --buy-ram-kbytes 10000"
   end
 
+  def import_user wallet, name
+    wallet.import_key( keys[name][0] )
+  end
+
   def transfer u1, u2, count
     cleos %Q|push action eosio.token transfer '["#{u1}", "#{u2}", "#{count} SYS", "vote"]' -p eosio|
   end
