@@ -25,8 +25,12 @@ module Base
     fig "exec keosd cleos -u http://#{node}:8888/ #{cmd}"
   end
 
-  def eosiocpp cmd
-    fig "run dev eosio-cpp #{cmd}"
+  def command cmd
+    folder = `pwd`.strip
+    puts "#{folder}\n$ #{cmd}"
+    result = `#{cmd}`.tap do |s|
+      puts s
+    end
+    Result.new result
   end
-
 end

@@ -28,10 +28,4 @@ services:
     volumes:
       - ./contracts:/opt/contracts
 
-  dev:
-    image: devbjune/eosio.cdt
-    working_dir: /opt/contracts
-    volumes:
-      - ./contracts:/opt/contracts
-
 

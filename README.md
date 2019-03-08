@@ -19,25 +19,26 @@ build a private network for EOSIO
 
 Then check containers' log.
 
-## build contract
+## build contract at host machine
 
 ```
-# cd eosnode
 # write a contract on ./contracts/hello/hello.cpp
 # ruby eosiocpp.rb ./contracts/hello/hello.cpp
-+fig run dev eosio-cpp -o ./hello/hello.wast ./hello/hello.cpp --abigen
+/Users/fsword/contracts/hello
+$ eosio-cpp -o hello.wasm hello.cpp --abigen
 Warning, empty ricardian clause file
 Warning, empty ricardian clause file
 
 ```
 
-Then you can get wasm/wast/abi files.
+note: it will show the workdir before the command is executed.
+
+Then you can get wasm/abi files.
 
 ## Recommend alias
 
 ```
 cleos='fig exec keosd cleos -u http://eosio-node:8888/'
-eosiocpp='fig run dev eosiocpp'
 keos='fig exec keosd /bin/bash'
 nodeos='fig exec eosio-node /bin/bash'
 ```
