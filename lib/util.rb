@@ -1,18 +1,8 @@
+require_relative "./base"
+require_relative "./wallet"
+
 module Util
-
-  class Result
-    def initialize result
-      @result = result
-    end
-
-    def result
-      @result
-    end
-
-    def inspect
-      nil
-    end
-  end
+  include Base
 
   @@keys = File.readlines('config/keys').
     delete_if{|s| s == "\n"}.
@@ -23,20 +13,8 @@ module Util
     @@keys
   end
 
-  def fig cmd
-    puts "+fig #{cmd}"
-    result = `docker-compose #{cmd}`.tap do |s|
-      puts s
-    end
-    Result.new result
-  end
-
-  def cleos cmd, node='eosio-node'
-    fig "exec keosd cleos -u http://#{node}:8888/ #{cmd}"
-  end
-
-  def eosiocpp cmd
-    fig "run dev eosio-cpp #{cmd}"
+  def wallet
+    @wallet ||= Wallet.new.try_load_password
   end
 
   def newaccount u, public_key=nil
@@ -44,13 +22,28 @@ module Util
     cleos "system newaccount eosio #{u} #{keys[u][1]} #{public_key} --stake-net '500.00 SYS' --stake-cpu '500.00 SYS' --buy-ram-kbytes 10000"
   end
 
-  def import_user wallet, name
-    wallet.import_key( keys[name][0] )
+  def import_user user_name
+    newaccount user_name
+    wallet.import_key( keys[user_name][0] )
   end
 
   def transfer u1, u2, count
     cleos %Q|push action eosio.token transfer '["#{u1}", "#{u2}", "#{count} SYS", "vote"]' -p eosio|
   end
+
+  def delegatebw account1, account2
+    cleos %Q|system delegatebw #{account1} #{account2} '25000000.0000 SYS' '25000000.0000 SYS' --transfer|
+  end
+
+  def regproducer label
+    node_name = label.gsub('.', '-') + '-node'
+    cleos "system regproducer #{label} #{keys[label][1]} http://#{node_name}:8888", node_name
+  end
+
+  def voteproducer voter, bp
+    cleos "system voteproducer prods #{voter} #{bp}"
+  end
+
   def error msg
     $stderr.puts msg
     exit 1

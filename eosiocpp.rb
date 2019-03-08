@@ -1,7 +1,6 @@
 #!/usr/bin/env ruby
 
 require_relative './lib/util'
-require_relative './lib/wallet'
 
 include Util
 
@@ -9,10 +8,10 @@ include Util
 #
 file = ARGV[0]
 
-error('Please specified cpp file')  unless file.end_with?('.cpp')
+error("Please specified cpp file: #{file}")  unless file.end_with?('.cpp')
 error("File not exist: #{file}") unless File.exist?(file)
 
 dest_path_base = (file.split('/') - ['contracts']).join('/').sub(/\.cpp$/,'')
 
-eosiocpp("-o #{dest_path_base}.wast #{dest_path_base}.cpp --abigen")
+eosiocpp("-o #{dest_path_base}.wasm #{dest_path_base}.cpp --abigen")
 

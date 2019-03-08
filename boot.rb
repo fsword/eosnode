@@ -1,27 +1,13 @@
 #!/usr/bin/env ruby
 
 require_relative './lib/util'
-require_relative './lib/wallet'
 
 include Util
 
-def delegatebw account1, account2
-  cleos %Q|system delegatebw #{account1} #{account2} '25000000.0000 SYS' '25000000.0000 SYS' --transfer|
-end
-
-def regproducer label
-  node_name = label.gsub('.', '-') + '-node'
-  cleos "system regproducer #{label} #{keys[label][1]} http://#{node_name}:8888", node_name
-end
-
-def voteproducer voter, bp
-  cleos "system voteproducer prods #{voter} #{bp}"
-end
-
 # 节点创建钱包
-@wallet = Wallet.new.create
+wallet.create
 %w{eosio eosio.bp1 eosio.bp2 voter1 voter2 voter3}.each do |label|
-  @wallet.import_key( keys[label][0] )
+  wallet.import_key( keys[label][0] )
 end
 
 # 创建代币合约账户
@@ -30,7 +16,7 @@ end
 end
 
 # 导入私钥
-@wallet.import_key( keys['eosio.token'][0] )
+wallet.import_key( keys['eosio.token'][0] )
 
 # 部署eosio.token合约
 cleos "set contract eosio.token /contracts/eosio.token"

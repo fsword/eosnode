@@ -1,8 +1,8 @@
-require_relative './util'
+require_relative './base'
 require 'yaml'
 
 class Wallet
-  include Util
+  include Base
   include YAML
 
   WALLET_FILE = './log/wallet.yml'
@@ -45,6 +45,13 @@ class Wallet
 
   def load_password
     YAML.load(File.read(WALLET_FILE))[@name]
+  end
+
+  def try_load_password
+    if pwd = load_password
+      @password = pwd
+    end
+    self
   end
 end
 
