@@ -1,8 +1,9 @@
 #!/bin/sh
 
 TEMPLATE_PATH=$BASE_DIR/config.ini.template
-CONFIG_INI_PATH=$DATA_DIR/config.ini
+CONFIG_INI_PATH=$CONFIG_DIR/config.ini
 
+mkdir -p $BASE_DIR
 # 调整config.ini文件，将容器的的hostname换为ip，否则nodeos不能正确建立网络连接
 if [ -f $CONFIG_INI_PATH ]
 then
@@ -30,12 +31,14 @@ then
   done
 fi
 
+OPTION="--config-dir $CONFIG_DIR --data-dir $DATA_DIR"
+
 # 根据 blocks 文件夹是否存在判断容器是否首次运行
 # 仅在初次运行 EOS 节点时需要指定 genesis 文件
 if [ -d $DATA_DIR/blocks ]
 then
-  exec /opt/eosio/bin/nodeosd.sh "$@"
+  echo
 else
-  exec /opt/eosio/bin/nodeosd.sh --genesis-json $BASE_DIR/genesis.json "$@"
+  OPTION="$OPTION --genesis-json $BASE_DIR/genesis.json"
 fi
-
+exec /usr/bin/nodeos $OPTION $@

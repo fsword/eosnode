@@ -24,7 +24,7 @@ services:
   keosd:
     image: fsword/eosnode
     working_dir: /opt/contracts
-    entrypoint: /opt/eosio/bin/keosd --wallet-dir /opt/eosio/bin/data-dir --http-server-address=127.0.0.1:8900
+    entrypoint: keosd --wallet-dir /opt/eosio/data-dir --http-server-address=127.0.0.1:8900
     volumes:
       - ./contracts:/opt/contracts
 
