@@ -14,7 +14,7 @@ module Util
   end
 
   def wallet
-    @wallet ||= Wallet.new.try_load_password
+    @wallet ||= Wallet.new.reload_password
   end
 
   def newaccount u, public_key=nil

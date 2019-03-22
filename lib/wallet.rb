@@ -47,7 +47,7 @@ class Wallet
     YAML.load(File.read(WALLET_FILE))[@name]
   end
 
-  def try_load_password
+  def reload_password
     if pwd = load_password
       @password = pwd
     end
