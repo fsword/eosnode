@@ -14,6 +14,7 @@ ENV ADDR_TO_IP true
 
 RUN mkdir -p $DATA_DIR $CONFIG_DIR
 
+COPY sys_contracts /contracts
 COPY entrypoint.sh /
 
 ENTRYPOINT ["/entrypoint.sh"]
