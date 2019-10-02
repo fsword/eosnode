@@ -3,8 +3,8 @@ FROM ubuntu:18.10
 RUN apt-get update && apt-get install iputils-ping wget -y
 
 
-RUN wget https://github.com/EOSIO/eos/releases/download/v1.7.2/eosio_1.7.2-1-ubuntu-18.04_amd64.deb \
-    && apt install ./eosio_1.7*.deb -y
+RUN wget https://github.com/EOSIO/eos/releases/download/v1.8.4/eosio_1.8.4-1-ubuntu-18.04_amd64.deb \
+    && apt install ./eosio_*.deb -y
 
 ENV BASE_DIR /opt/eosio
 ENV DATA_DIR $BASE_DIR/data-dir
