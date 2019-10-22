@@ -1,9 +1,9 @@
-FROM ubuntu:18.10
+FROM ubuntu:18.04
 
 RUN apt-get update && apt-get install iputils-ping wget -y
 
 
-RUN wget https://github.com/EOSIO/eos/releases/download/v1.8.4/eosio_1.8.4-1-ubuntu-18.04_amd64.deb \
+RUN wget https://github.com/EOSIO/eos/releases/download/v2.0.0-rc1/eosio_2.0.0-rc1-ubuntu-18.04_amd64.deb \
     && apt install ./eosio_*.deb -y
 
 ENV BASE_DIR /opt/eosio
