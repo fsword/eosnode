@@ -44,6 +44,37 @@ module Util
     cleos "system voteproducer prods #{voter} #{bp}"
   end
 
+  def compile name, folder="."
+    filename = "contracts/#{name}/#{name}.cpp"
+    folder = File.join folder, File.dirname(filename)
+
+    error("File not exist: #{filename}") unless File.exist?(filename)
+
+    Dir.chdir(folder) do
+      command("eosio-cpp -o #{name}.wasm #{name}.cpp --abigen")
+    end
+  end
+
+  def deploy contract, user="user1"
+    compile contract
+    import_user user
+    cleos "set contract #{user} /opt/contracts/#{contract} -p #{user}@active"
+  end
+
+  def biz contract, action, user, *params
+    args = params.map{ |a|
+      case a
+      when Numeric
+        a
+      when String
+        "\"#{a}\""
+      else
+        fail "#{a.class} not support"
+      end
+    }.join(",")
+    cleos %Q|push action #{contract} #{action} '[#{args}]' -p #{user}@active|
+  end
+
   def error msg
     $stderr.puts msg
     exit 1
