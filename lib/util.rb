@@ -1,5 +1,6 @@
 require_relative "./base"
 require_relative "./wallet"
+require_relative "./contract"
 
 module Util
   include Base
@@ -28,7 +29,7 @@ module Util
   end
 
   def transfer u1, u2, count
-    cleos %Q|push action eosio.token transfer '["#{u1}", "#{u2}", "#{count} SYS", "vote"]' -p eosio|
+    cleos %Q|push action eosio.token transfer '["#{u1}", "#{u2}", "#{count} SYS", "vote"]' -p #{u1}|
   end
 
   def delegatebw account1, account2
@@ -42,6 +43,10 @@ module Util
 
   def voteproducer voter, bp
     cleos "system voteproducer prods #{voter} #{bp}"
+  end
+
+  def contract name, operator='user2'
+    Contract.new name, operator
   end
 
   def error msg

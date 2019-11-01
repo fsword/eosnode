@@ -14,7 +14,7 @@ module Base
   end
 
   def fig cmd
-    puts "+fig #{cmd}"
+    say "fig #{cmd}"
     result = `docker-compose #{cmd}`.tap do |s|
       puts s
     end
@@ -27,10 +27,14 @@ module Base
 
   def command cmd
     folder = `pwd`.strip
-    puts "#{folder}\n$ #{cmd}"
+    say "#{folder}\n$ #{cmd}"
     result = `#{cmd}`.tap do |s|
       puts s
     end
     Result.new result
+  end
+
+  def say str
+    puts "+#{str}"
   end
 end

@@ -4,6 +4,8 @@ services:
   eosio-node:
     hostname: eosio-node
     image: fsword/eosnode
+    ports:
+      - 8888:8888
     volumes:
       - ./config/eosio-node/config.ini:/opt/eosio/config.ini.template:ro
       - ./config/genesis.json:/opt/eosio/genesis.json:ro
