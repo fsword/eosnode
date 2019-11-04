@@ -56,3 +56,8 @@ voteproducer 'voter1', 'eosio'
 voteproducer 'voter2', 'eosio.bp1'
 voteproducer 'voter3', 'eosio.bp2'
 
+# 导入测试用户
+%w|user1 user2 user3 user4|.each do |u|
+  import_user u
+end
+

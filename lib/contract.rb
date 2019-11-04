@@ -28,7 +28,6 @@ class Contract
   def deploy owner='user1'
     self.owner = owner
     compile
-    import_user self.owner
     cleos "set contract #{self.owner} /opt/contracts/#{self.name} -p #{self.owner}@active"
   end
 
