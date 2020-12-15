@@ -6,5 +6,5 @@ include Util
 
 # eg: eosiocpp.rb hello
 #
-compile ARGV[0]
-
+c = contract ARGV[0]
+c.compile
